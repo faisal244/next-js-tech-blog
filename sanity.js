@@ -1,8 +1,10 @@
 import {
-	createImageUrlBuilder,
+	// createImageUrlBuilder,
 	createCurrentUserHook,
 	createClient,
 } from "next-sanity";
+
+import createImageUrlBuilder from "@sanity/image-url";
 
 // Standard sanity config
 // Don't forget token, to get a preview client and authenticated client
