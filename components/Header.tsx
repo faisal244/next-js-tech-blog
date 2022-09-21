@@ -6,7 +6,7 @@ function Header() {
 			<div className="flex items-center space-x-5">
 				<Link href="/">
 					<img
-						src="https://links.papreact.com/yvf"
+						src=""
 						className="w-44 object-contain cursor-pointer"
 						alt=""
 					/>
