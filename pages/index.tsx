@@ -10,7 +10,6 @@ interface Props {
 }
 
 export default function Home({ posts }: Props) {
-	console.log(posts);
 	return (
 		<div className="max-w-7xl mx-auto">
 			<Head>
@@ -36,7 +35,7 @@ export default function Home({ posts }: Props) {
 				</div>
 				<img
 					className="hidden md:inline-flex h-32 lg:h-full"
-					src="https://accountabilitylab.org/wp-content/uploads/2020/03/medium-logo.png"
+					src="https://babble.cloud/wp-content/uploads/2022/06/speech-logo-768x209.png"
 					alt=""
 				/>
 				<div></div>

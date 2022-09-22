@@ -6,7 +6,7 @@ function Header() {
 			<div className="flex items-center space-x-5">
 				<Link href="/">
 					<img
-						src="https://links.papreact.com/yvf"
+						src="https://babble.cloud/wp-content/uploads/2022/06/speech-logo-768x209.png"
 						className="w-44 object-contain cursor-pointer"
 						alt=""
 					/>
