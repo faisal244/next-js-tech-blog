@@ -3,6 +3,14 @@ import Header from "../../components/Header";
 import { sanityClient, urlFor } from "../../sanity";
 import { Post } from "../../typings";
 import PortableText from "react-portable-text";
+import { useForm, SubmitHandler } from "react-hook-form";
+
+interface IFormInput {
+	_id: string;
+	name: string;
+	email: string;
+	comment: string;
+}
 
 interface Props {
 	post: Post;
@@ -10,6 +18,12 @@ interface Props {
 
 function Post({ post }: Props) {
 	console.log(post);
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
 
 	return (
 		<main>
@@ -80,9 +94,17 @@ function Post({ post }: Props) {
 				<h4 className="text-3xl font-bold">Leave a comment below!</h4>
 				<hr className="py-3 mt-2" />
 
+				<input
+					{...register("_id")}
+					type="hidden"
+					name="_id"
+					value={post._id}
+				/>
+
 				<label className="block mb-5">
 					<span className="tex-gray-700">Name</span>
 					<input
+						{...register("name", { required: true })}
 						placeholder="Johnny Appleseed"
 						type="text"
 						className="shadow border rounderd py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring"
@@ -91,6 +113,7 @@ function Post({ post }: Props) {
 				<label className="block mb-5">
 					<span className="tex-gray-700">Email</span>
 					<input
+						{...register("email  ", { required: true })}
 						placeholder="Johnny Appleseed"
 						type="text"
 						className="shadow border rounderd py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring"
@@ -99,11 +122,32 @@ function Post({ post }: Props) {
 				<label className="block mb-5">
 					<span className="tex-gray-700">Comment</span>
 					<textarea
+						{...register("comment", { required: true })}
 						placeholder="Johnny Appleseed"
 						className="shadow border rounderd py-2 px-3 form-textarea mt-1 block w-full ring-yellow-500 outline-none focus:ring"
 						rows={8}
 					/>
 				</label>
+
+				<div className="flex flex-col p-5">
+					{/* if there is an error, show an error message */}
+					{errors.name && (
+						<span className="text-red-500">- The Name Field is Required</span>
+					)}
+					{errors.email && (
+						<span className="text-red-500">- The Email Field is Required</span>
+					)}
+					{errors.comment && (
+						<span className="text-red-500">
+							- The Comment Field is Required
+						</span>
+					)}
+				</div>
+
+				<input
+					type="submit"
+					className="shadow bg-yellow-500 hover:bg-yellow-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded cursor-pointer"
+				/>
 			</form>
 		</main>
 	);
