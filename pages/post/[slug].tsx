@@ -4,6 +4,7 @@ import { sanityClient, urlFor } from "../../sanity";
 import { Post } from "../../typings";
 import PortableText from "react-portable-text";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useState } from "react";
 
 interface IFormInput {
 	_id: string;
@@ -19,6 +20,8 @@ interface Props {
 function Post({ post }: Props) {
 	// console.log(post);
 
+	const [submitted, setSubmitted] = useState(false);
+
 	const {
 		register,
 		handleSubmit,
@@ -33,9 +36,11 @@ function Post({ post }: Props) {
 		})
 			.then(() => {
 				console.log(data);
+				setSubmitted(true);
 			})
 			.catch((err) => {
 				console.log(err);
+				setSubmitted(false);
 			});
 	};
 
@@ -103,69 +108,75 @@ function Post({ post }: Props) {
 
 			<hr className="max-w-lg my-5 mx-auto border border-yellow-500" />
 
-			<form
-				onSubmit={handleSubmit(onSubmit)}
-				className="flex flex-col p-5 max-w-2xl mx-auto mb-10"
-			>
-				<h3 className="text-sm text-yellow-500">Enjoyed this article?</h3>
-				<h4 className="text-3xl font-bold">Leave a comment below!</h4>
-				<hr className="py-3 mt-2" />
+			{submitted ? (
+				<h1>Submitted</h1>
+			) : (
+				<form
+					onSubmit={handleSubmit(onSubmit)}
+					className="flex flex-col p-5 max-w-2xl mx-auto mb-10"
+				>
+					<h3 className="text-sm text-yellow-500">Enjoyed this article?</h3>
+					<h4 className="text-3xl font-bold">Leave a comment below!</h4>
+					<hr className="py-3 mt-2" />
 
-				<input
-					{...register("_id")}
-					type="hidden"
-					name="_id"
-					value={post._id}
-				/>
-
-				<label className="block mb-5">
-					<span className="tex-gray-700">Name</span>
 					<input
-						{...register("name", { required: true })}
-						placeholder="Johnny Appleseed"
-						type="text"
-						className="shadow border rounderd py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring"
+						{...register("_id")}
+						type="hidden"
+						name="_id"
+						value={post._id}
 					/>
-				</label>
-				<label className="block mb-5">
-					<span className="tex-gray-700">Email</span>
+
+					<label className="block mb-5">
+						<span className="tex-gray-700">Name</span>
+						<input
+							{...register("name", { required: true })}
+							placeholder="Johnny Appleseed"
+							type="text"
+							className="shadow border rounderd py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring"
+						/>
+					</label>
+					<label className="block mb-5">
+						<span className="tex-gray-700">Email</span>
+						<input
+							{...register("email", { required: true })}
+							placeholder="Johnny Appleseed"
+							type="email"
+							className="shadow border rounderd py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring"
+						/>
+					</label>
+					<label className="block mb-5">
+						<span className="tex-gray-700">Comment</span>
+						<textarea
+							{...register("comment", { required: true })}
+							placeholder="Johnny Appleseed"
+							className="shadow border rounderd py-2 px-3 form-textarea mt-1 block w-full ring-yellow-500 outline-none focus:ring"
+							rows={8}
+						/>
+					</label>
+
+					<div className="flex flex-col p-5">
+						{/* if there is an error, show an error message */}
+						{errors.name && (
+							<span className="text-red-500">- The Name Field is Required</span>
+						)}
+						{errors.email && (
+							<span className="text-red-500">
+								- The Email Field is Required
+							</span>
+						)}
+						{errors.comment && (
+							<span className="text-red-500">
+								- The Comment Field is Required
+							</span>
+						)}
+					</div>
+
 					<input
-						{...register("email", { required: true })}
-						placeholder="Johnny Appleseed"
-						type="email"
-						className="shadow border rounderd py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring"
+						type="submit"
+						className="shadow bg-yellow-500 hover:bg-yellow-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded cursor-pointer"
 					/>
-				</label>
-				<label className="block mb-5">
-					<span className="tex-gray-700">Comment</span>
-					<textarea
-						{...register("comment", { required: true })}
-						placeholder="Johnny Appleseed"
-						className="shadow border rounderd py-2 px-3 form-textarea mt-1 block w-full ring-yellow-500 outline-none focus:ring"
-						rows={8}
-					/>
-				</label>
-
-				<div className="flex flex-col p-5">
-					{/* if there is an error, show an error message */}
-					{errors.name && (
-						<span className="text-red-500">- The Name Field is Required</span>
-					)}
-					{errors.email && (
-						<span className="text-red-500">- The Email Field is Required</span>
-					)}
-					{errors.comment && (
-						<span className="text-red-500">
-							- The Comment Field is Required
-						</span>
-					)}
-				</div>
-
-				<input
-					type="submit"
-					className="shadow bg-yellow-500 hover:bg-yellow-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded cursor-pointer"
-				/>
-			</form>
+				</form>
+			)}
 		</main>
 	);
 }
