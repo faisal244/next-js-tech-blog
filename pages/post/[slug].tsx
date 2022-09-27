@@ -18,10 +18,8 @@ interface Props {
 }
 
 function Post({ post }: Props) {
-	// console.log(post);
-
 	const [submitted, setSubmitted] = useState(false);
-
+	console.log(post);
 	const {
 		register,
 		handleSubmit,
@@ -29,13 +27,11 @@ function Post({ post }: Props) {
 	} = useForm<IFormInput>();
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
-		// console.log(data);
 		fetch("/api/createComment", {
 			method: "POST",
 			body: JSON.stringify(data),
 		})
 			.then(() => {
-				console.log(data);
 				setSubmitted(true);
 			})
 			.catch((err) => {
@@ -184,6 +180,21 @@ function Post({ post }: Props) {
 					/>
 				</form>
 			)}
+
+			{/* Comments */}
+			<div className="flex flex-col p-10 my-10 max-w-2xl mx-auto shadow-yellow-500 shadow space-y-2">
+				<h3 className="text-4xl">Comments</h3>
+				<hr className="pb-2" />
+
+				{post.comments.map((comment) => (
+					<div key={comment._id}>
+						<p>
+							<span className="text-yellow-500">{comment.name}: </span>
+							{comment.comment}
+						</p>
+					</div>
+				))}
+			</div>
 		</main>
 	);
 }
@@ -213,19 +224,24 @@ current,
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-	const query = `*[_type == "post" && slug.current =="my-first-post"] [0] {
+	const query = `*[_type == "post" && slug.current == "my-first-post"] [0] {
   _id,
   _createdAt,
   title,
   author -> {
   name,
   image
-},
-description,
-mainImage,
+  },
+  'comments': *[
+	_type == "comment" && 
+	post._ref == ^._id &&
+	approved == true],
+  description,
+  mainImage,
   slug,
-body
-}`;
+  body
+}
+`;
 
 	const post = await sanityClient.fetch(query, {
 		slug: params?.slug,
