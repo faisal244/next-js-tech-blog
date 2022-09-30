@@ -16,33 +16,9 @@ A technology blog with a UX inspired by medium.com, using NEXT.js, TypeScript, S
 
 The following animation shows the web application's appearance and functionality:
 
-![User clicks through About Me, Portfolio, Resume, and Contact sections on the webpage and enters information on Contact page.](./src/assets/react-portfolio-gif.gif)
-
 ### Back End Content Management System Screenshots:
 
-![Sanity CMS - Add a new Project](./src/assets/Screenshots/backend-1.png)
-
-![Sanity CMS - Add a new skill icon](./src/assets/Screenshots/backend-2.png)
-
-![Sanity CMS - Add a new job to the Experiences section](./src/assets/Screenshots/backend-3.png)
-
-![Sanity CMS - Add a new animated card in the about section](./src/assets/Screenshots/backend-4.png)
-
-![Sanity CMS - Screenshot of the email inbox that any submitted contact form enquiries go to](./src/assets/Screenshots/backend-5.png)
-
 ### Front End Screenshots:
-
-![Homepage](./src/assets/Screenshots/frontend-1.png)
-
-![About section](./src/assets/Screenshots/frontend-2.png)
-
-![My creative portfolio section](./src/assets/Screenshots/frontend-3.png)
-
-![Skills and Experience section](./src/assets/Screenshots/frontend-4.png)
-
-![Testimonials section](./src/assets/Screenshots/frontend-5.png)
-
-![Footer section with Contact form](./src/assets/Screenshots/frontend-6.png)
 
 ## Contact me
 
