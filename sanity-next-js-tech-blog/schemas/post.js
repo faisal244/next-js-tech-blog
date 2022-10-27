@@ -6,7 +6,7 @@ export default {
 		{
 			name: "title",
 			title: "Title",
-			description: "Keep titles short and sweet!",
+			// description: "Keep titles short and sweet!",
 			type: "string",
 		},
 		{

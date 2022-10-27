@@ -18,6 +18,7 @@ interface Props {
 }
 
 function Post({ post }: Props) {
+	console.log(post);
 	const [submitted, setSubmitted] = useState(false);
 
 	const {
@@ -224,7 +225,7 @@ current,
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-	const query = `*[_type == "post" && slug.current == "my-first-post"] [0] {
+	const query = `*[_type == "post" && slug.current == $slug] [0] {
   _id,
   _createdAt,
   title,
